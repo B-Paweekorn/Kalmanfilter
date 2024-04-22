@@ -24,45 +24,53 @@ P_pk = 0;
 % R = 1.119;
 % L = 0.00466118;
 
-J = 1.7E-6;
-kt = 34.8E-3;
-ke = (3.65e-3)/60;
-R = 2.84;
-L = 380E-6;
-b = 4.37E-4;
+% J = 1.7E-6;
+% kt = 34.8E-3;
+% ke = (3.65e-3)/60;
+% R = 2.84;
+% L = 380E-6;
+% b = 4.37E-4;
 
-% G1 = 0.9;
-% G2 = 1- G1;
-% for i = 1:length(t)
-%     [w_hat(i),i_hat(i),p_hat(i)] = SteadyStateKalmanFilter(Vin(i),pos(i));
-%     i_hat(i) = G1*i_hat(i) + G2*(i_hat(i) - Current(i));
-% end
-% subplot(2,3,1);
-% plot(t,w_hat);
-% title('SteadyStateKalmanFilter [Motor model]')
-% xlabel('time (sec)')
-% ylabel('prediction velocity')
-% 
-% subplot(2,3,3);
-% plot(t,w);
-% xlabel('time (sec)')
-% ylabel('measurement velocity')
-% 
-% subplot(2,3,2);
-% plot(t,i_hat);
-% title('SteadyStateKalmanFilter [Motor model]')
-% xlabel('time (sec)')
-% ylabel('prediction current')
-% 
-% subplot(2,3,4);
-% plot(t,Current);
-% xlabel('time (sec)')
-% ylabel('measurement current')
-% 
-% subplot(2,3,5);
-% plot(t,p_hat);
-% subplot(2,3,6);
-% plot(t,pos);
+%Parameter ZGB102FGG
+J = 0.007371752058300;
+kt =  0.395367525411770;
+ke =  0.395367525411770;
+R = 1.325581400000000;
+L = 0.002386100000000;
+b = 0.013503282026890;
+
+G1 = 0.9;
+G2 = 1- G1;
+for i = 1:length(t)
+    [w_hat(i),i_hat(i),p_hat(i)] = SteadyStateKalmanFilter(Vin(i),pos(i));
+    i_hat(i) = G1*i_hat(i) + G2*(i_hat(i) - Current(i));
+end
+subplot(2,3,1);
+plot(t,w_hat);
+title('SteadyStateKalmanFilter [Motor model]')
+xlabel('time (sec)')
+ylabel('prediction velocity')
+
+subplot(2,3,3);
+plot(t,w);
+xlabel('time (sec)')
+ylabel('measurement velocity')
+
+subplot(2,3,2);
+plot(t,i_hat);
+title('SteadyStateKalmanFilter [Motor model]')
+xlabel('time (sec)')
+ylabel('prediction current')
+
+subplot(2,3,4);
+plot(t,Current);
+xlabel('time (sec)')
+ylabel('measurement current')
+
+subplot(2,3,5);
+plot(t,p_hat);
+subplot(2,3,6);
+plot(t,pos);
 function [A,B,C,D,G] = MatrixGenerator()
     % J = 922.333e-6;
     % b = 208.534e-6;
@@ -70,15 +78,17 @@ function [A,B,C,D,G] = MatrixGenerator()
     % ke = 0.239;
     % R = 1.119;
     % L = 5.1018e-3;
-    %Parameter
-    J = 1.7E-6;
-    kt = 34.8E-3;
-    ke = (3.65e-3)/60;
-    R = 2.84;
-    L = 380E-6;
-    b = 4.37E-4;
+    
 
-    dt = 1.0/5000.0;
+    %Parameter ZGB102FGG
+    J = 0.007371752058300;
+    kt =  0.395367525411770;
+    ke =  0.395367525411770;
+    R = 1.325581400000000;
+    L = 0.002386100000000;
+    b = 0.013503282026890;
+
+    dt = 1.0/1000.0;
 
     %State Transition Matrix
     Ac = [0   1    0    0;
